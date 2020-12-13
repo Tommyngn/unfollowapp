@@ -1,2 +1,3 @@
 web: gunicorn web:app
-clock: python3 jobs.py
+clock: python3 web.py
+

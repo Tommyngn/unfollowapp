@@ -4,10 +4,9 @@ import csv
 from datetime import datetime
 
 
-sched=BlockingScheduler(daemon=True)
-names=[]
+# sched=BlockingScheduler(daemon=True)
 
-@sched.scheduled_job('interval', minutes=5, args=['noahthemac'],next_run_time=datetime.now())
+# @sched.scheduled_job('interval', minutes=5, args=['noahthemac'],next_run_time=datetime.now())
 def timed_job(name):
     print('This job is run every three minutes.')
     global names
@@ -24,4 +23,4 @@ def timed_job(name):
     #     if str(i) not in h:
     #         names.append(i)
 
-sched.start()
+# sched.start()
