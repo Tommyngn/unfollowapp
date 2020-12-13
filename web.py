@@ -31,7 +31,7 @@ def timed_job(name):
     #     if str(i) not in h:
     #         names.append(i)
 
-sched.add_job(timed_job,'interval', minutes=5, args=['noahthemac'], next_run_time=datetime.now() )
+sched.add_job(timed_job,'cron', minutes=5, args=['noahthemac'], next_run_time=datetime.now() )
 
 @app.route('/')
 def home():
