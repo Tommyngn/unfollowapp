@@ -32,6 +32,7 @@ app=Flask(__name__,template_folder='templatess')
 
 @app.route('/')
 def home():
+    names.append(['sup'])
     return render_template('index.html',names=names)
 
 
