@@ -32,6 +32,7 @@ count=0
 
 @app.route('/')
 def home():
+    global names
     return render_template('index.html',names=names)
 
 
