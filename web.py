@@ -1,7 +1,6 @@
 from instafollowers import unfollowbot
 from flask import Flask , render_template
 import config
-from jobs import timed_job
 from apscheduler.schedulers.blocking import BlockingScheduler
 import csv
 import time
