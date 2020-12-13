@@ -3,7 +3,7 @@ from instafollowers import  unfollowbot
 import csv
 from datetime import datetime
 
-
+names=[]
 # sched=BlockingScheduler(daemon=True)
 
 # @sched.scheduled_job('interval', minutes=5, args=['noahthemac'],next_run_time=datetime.now())
