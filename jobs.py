@@ -11,6 +11,7 @@ sched=BlockingScheduler(daemon=True)
 def timed_job(name):
     print('This job is run every three minutes.')
     config.names.append('tommm')
+    print(config.names)
     # bot = unfollowbot()
     # l = bot.getfollowerlist(name)
     # f = open('following_list_updated_new.csv', 'r')
