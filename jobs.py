@@ -1,15 +1,16 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
-from web import names
-from web import count
 from instafollowers import  unfollowbot
 import csv
 from datetime import datetime
+
+names=[]
 
 sched=BlockingScheduler(daemon=True)
 
 @sched.scheduled_job('interval', minutes=5, args=['noahthemac'],next_run_time=datetime.now())
 def timed_job(name):
     print('This job is run every three minutes.')
+    global names
     names.clear()
     names.append(['hello tommy'])
     # bot = unfollowbot()

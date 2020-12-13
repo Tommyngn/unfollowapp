@@ -1,5 +1,6 @@
 from instafollowers import unfollowbot
 from flask import Flask , render_template
+from jobs import names
 from apscheduler.schedulers.background import BackgroundScheduler
 import csv
 import time
@@ -7,8 +8,7 @@ from datetime import datetime
 
 app=Flask(__name__,template_folder='templatess')
 # sched=BackgroundScheduler(daemon=True)
-names=[]
-count=0
+
 
 # def timed_job(name):
 #     print('This job is run every three minutes.')
@@ -32,7 +32,6 @@ count=0
 
 @app.route('/')
 def home():
-    global names
     return render_template('index.html',names=names)
 
 
