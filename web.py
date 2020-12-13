@@ -1,7 +1,6 @@
 from instafollowers import unfollowbot
 from flask import Flask , render_template
 import config
-from apscheduler.schedulers.blocking import BlockingScheduler
 import csv
 import time
 from datetime import datetime
