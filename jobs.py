@@ -11,7 +11,7 @@ sched=BackgroundScheduler(daemon=True)
 def timed_job(name):
     print('This job is run every three minutes.')
     names.clear()
-    names.append(' hellooo')
+    print('helloooo')
     # bot = unfollowbot()
     # l = bot.getfollowerlist(name)
     # f = open('following_list_updated_new.csv', 'r')
