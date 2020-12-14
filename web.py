@@ -31,7 +31,7 @@ def timed_job(name):
     #         names.append(i)
 
 sched.add_job(timed_job,'interval', minutes=5, args=['noahthemac'], next_run_time=datetime.now() )
-sched.start()
+# sched.start()
 
 @app.route('/')
 def home():
