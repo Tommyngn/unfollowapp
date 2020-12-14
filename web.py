@@ -6,6 +6,7 @@ from flask import Flask , render_template
 from apscheduler.schedulers.background import BackgroundScheduler
 import csv
 import time
+import os
 from datetime import datetime
 
 app=Flask(__name__,template_folder='templatess')
@@ -33,13 +34,14 @@ def timed_job(name):
     #         names.append(i)
 def refresh():
     print('refreshing page')
-    path='/Users/tommynguyen/Desktop/chromedriver'
-    chrome_option = Options()
-    chrome_option.add_argument('--headless')
-    chrome_option.add_argument('--window-size=1920x1080')
-    chrome_option.add_argument('--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36')
+    # path='/Users/tommynguyen/Desktop/chromedriver'
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--no-sandbox")
 
-    drive = webdriver.Chrome(options=chrome_option, executable_path=path)
+    drive = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
     drive.get('https://unfollow-app.herokuapp.com/')
     time.sleep(3)
     drive.refresh()
