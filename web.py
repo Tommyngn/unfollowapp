@@ -3,7 +3,6 @@ from selenium.webdriver.common.keys import Keys
 from instafollowers import unfollowbot
 from flask import Flask , render_template
 from apscheduler.schedulers.background import BackgroundScheduler
-# from jobs import timed_job
 import csv
 import time
 from datetime import datetime
@@ -32,9 +31,11 @@ def timed_job(name):
     #     if str(i) not in h:
     #         names.append(i)
 def refresh():
+    print('refreshing page')
     path='/Users/tommynguyen/Desktop/chromedriver'
     drive = webdriver.Chrome(executable_path=path)
     drive.get('https://unfollow-app.herokuapp.com/')
+    time.sleep(3)
     drive.refresh()
 
 
