@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
 from instafollowers import unfollowbot
 from flask import Flask , render_template
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -33,7 +34,12 @@ def timed_job(name):
 def refresh():
     print('refreshing page')
     path='/Users/tommynguyen/Desktop/chromedriver'
-    drive = webdriver.Chrome(executable_path=path)
+    chrome_option = Options()
+    chrome_option.add_argument('--headless')
+    chrome_option.add_argument('--window-size=1920x1080')
+    chrome_option.add_argument('--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36')
+
+    drive = webdriver.Chrome(options=chrome_option, executable_path=path)
     drive.get('https://unfollow-app.herokuapp.com/')
     time.sleep(3)
     drive.refresh()
