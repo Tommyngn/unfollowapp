@@ -1,14 +1,13 @@
 from instafollowers import unfollowbot
 from flask import Flask , render_template
-import config
-from apscheduler.schedulers.blocking import BlockingScheduler
+from apscheduler.schedulers.background import BackgroundScheduler
 # from jobs import timed_job
 import csv
 import time
 from datetime import datetime
 
 app=Flask(__name__,template_folder='templatess')
-sched=BlockingScheduler(daemon=True)
+sched=BackgroundScheduler(daemon=True)
 namess=[]
 
 def timed_job(name):
@@ -32,6 +31,7 @@ def timed_job(name):
     #         names.append(i)
 
 sched.add_job(timed_job,'interval', minutes=5, args=['noahthemac'], next_run_time=datetime.now() )
+sched.start()
 
 @app.route('/')
 def home():
@@ -41,5 +41,4 @@ def home():
 
 
 if __name__ == '__main__':
-    sched.start()
     app.run(debug=True, use_reloader=False)
