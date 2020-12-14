@@ -28,10 +28,11 @@ class unfollowbot:
     #     login.send_keys(Keys.ENTER)
     #
     #     time.sleep(6)
+    #     drive.save_screenshot('test2.png')
+    #
     #     page=drive.find_element_by_xpath("//button[contains(text(), 'Not Now')]")
     #     page.click()
     #     time.sleep(6)
-    #     drive.save_screenshot('test2.png')
     #     # page1=drive.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]')
     #     # page1.click()
     #     # time.sleep(3)
@@ -68,7 +69,7 @@ class unfollowbot:
 
     def getfollowerlist(self,name):
 
-        path='/Users/tommynguyen/Desktop/chromedriver'
+        path='chromedriver'
         chrome_option=Options()
         chrome_option.add_argument('--headless')
         chrome_option.add_argument('--window-size=1920x1080')

@@ -1,3 +1,5 @@
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 from instafollowers import unfollowbot
 from flask import Flask , render_template
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -29,8 +31,15 @@ def timed_job(name):
     # for i in l:
     #     if str(i) not in h:
     #         names.append(i)
+def refresh():
+    path='/Users/tommynguyen/Desktop/chromedriver'
+    drive = webdriver.Chrome(executable_path=path)
+    drive.get('https://unfollow-app.herokuapp.com/')
+    drive.refresh()
 
-sched.add_job(timed_job,'interval', minutes=5, args=['noahthemac'], next_run_time=datetime.now() )
+
+sched.add_job(timed_job,'interval', minutes=5, args=['noahthemac'], next_run_time=datetime.now())
+sched.add_job(refresh, 'interval', minutes=20)
 sched.start()
 
 @app.route('/')
