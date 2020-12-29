@@ -47,7 +47,7 @@ def refresh():
 
 
 sched.add_job(timed_job,'interval', minutes=5, args=['noahthemac'], next_run_time=datetime.now())
-sched.add_job(refresh, 'interval', minutes=20)
+sched.add_job(refresh, 'interval', minutes=6)
 sched.start()
 
 @app.route('/')
