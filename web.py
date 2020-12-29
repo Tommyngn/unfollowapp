@@ -40,7 +40,6 @@ def refresh():
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-dev-shm-usage")
-
     drive = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
     drive.get('https://unfollow-app.herokuapp.com/')
     time.sleep(3)
