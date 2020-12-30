@@ -49,6 +49,7 @@ def refresh():
 
 sched.add_job(timed_job,'interval', minutes=5, args=['noahthemac'], next_run_time=datetime.now())
 sched.add_job(refresh, 'interval', minutes=6)
+sched.start()
 
 @app.route('/')
 def home():
@@ -59,4 +60,3 @@ def home():
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=False)
-    sched.start()
