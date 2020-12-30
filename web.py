@@ -13,6 +13,15 @@ app=Flask(__name__,template_folder='templatess')
 sched=BackgroundScheduler(daemon=True)
 namess=[]
 
+op = webdriver.ChromeOptions()
+op.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+op.add_argument("--no-sandbox")
+op.add_argument("--headless")
+op.add_argument("--remote-debugging-port=9222")
+op.add_argument('--disable-gpu')
+op.add_argument("--disable-dev-shm-usage")
+drive = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=op)
+
 def timed_job(name):
     print('This job is run every three minutes.')
     # global count
@@ -35,14 +44,15 @@ def timed_job(name):
 def refresh():
     print('refreshing page')
     # path='/Users/tommynguyen/Desktop/chromedriver'
-    op = webdriver.ChromeOptions()
-    op.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-    op.add_argument("--no-sandbox")
-    op.add_argument("--headless")
-    op.add_argument("--remote-debugging-port=9222")
-    op.add_argument('--disable-gpu')
-    op.add_argument("--disable-dev-shm-usage")
-    drive = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=op)
+    # op = webdriver.ChromeOptions()
+    # op.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    # op.add_argument("--no-sandbox")
+    # op.add_argument("--headless")
+    # op.add_argument("--remote-debugging-port=9222")
+    # op.add_argument('--disable-gpu')
+    # op.add_argument("--disable-dev-shm-usage")
+    # drive = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=op)
+    global drive
     drive.get('https://unfollow-app.herokuapp.com/')
     time.sleep(3)
     drive.refresh()
