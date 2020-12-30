@@ -3,14 +3,14 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from instafollowers import unfollowbot
 from flask import Flask , render_template
-from apscheduler.schedulers.background import BlockingScheduler
+from apscheduler.schedulers.background import BackgroundScheduler
 import csv
 import time
 import os
 from datetime import datetime
 
 app=Flask(__name__,template_folder='templatess')
-sched=BlockingScheduler(daemon=True)
+sched=BackgroundScheduler(daemon=True)
 namess=[]
 
 def timed_job(name):
