@@ -4,6 +4,7 @@ from selenium.webdriver.chrome.options import Options
 from instafollowers import unfollowbot
 from flask import Flask , render_template
 from apscheduler.schedulers.background import BackgroundScheduler
+import psycopg2 as pg
 import csv
 import time
 import os
@@ -17,54 +18,60 @@ op = webdriver.ChromeOptions()
 op.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 op.add_argument("--no-sandbox")
 op.add_argument("--headless")
-
 op.add_argument("--disable-dev-shm-usage")
 drive = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=op)
+conn=pg.connect(host='ec2-18-232-232-96.compute-1.amazonaws.com',database='de519828rorgih',user='nhtbmdiomahfmr',port='5432',password='e7695b9bfebebe96f6c625e836a6abc58f1e30ca6a00c2cab39a8b3a22e85667')
+curr=conn.cursor()
 
 def timed_job(name):
     print('This job is run every three minutes.')
-    # global count
-    global namess
-    namess.append('hiii')
-    print(namess,' yess')
-    # names.clear()
-    # count+=1
-    # names.append(str(count))
-    # bot = unfollowbot()
-    # l = bot.getfollowerlist(name)
-    # f = open('following_list_updated_new.csv', 'r')
-    # g = list(csv.reader(f))
-    # h=[]
-    # for i in g:
-    #     h.append(i[0])
-    # for i in l:
-    #     if str(i) not in h:
-    #         names.append(i)
+    bot=unfollowbot()
+    list1=bot.getfollowerlist(name,drive)
+    curr.execute('SELECT name FROM public.following_updated_new;')
+    list2=curr.fetchall()
+    list3=[]
+    for pos1, i in enumerate(list2):
+        list3.append(i[0])
+
+    curr.execute('SELECT MAX(id) FROM public.unfollow_final')
+    l=curr.fetchone()
+    if l[0] != None:
+        count=l[0]
+        sql='INSERT INTO public.unfollow_final (id,name) VALUES (%s,%s);'
+        for pos1, i in enumerate(list3):
+            if str(i) not in list1:
+                values=(count,i)
+                curr.execute(sql,values)
+                count+=1
+    else:
+        sql = 'INSERT INTO public.unfollow_final (id,name) VALUES (%s,%s);'
+        for pos1, i in enumerate(list3):
+            if str(i) not in list1:
+                values = (pos1, i)
+                curr.execute(sql, values)
+
+
 def refresh():
     print('refreshing page')
-    # path='/Users/tommynguyen/Desktop/chromedriver'
-    # op = webdriver.ChromeOptions()
-    # op.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-    # op.add_argument("--no-sandbox")
-    # op.add_argument("--headless")
-    # op.add_argument("--remote-debugging-port=9222")
-    # op.add_argument('--disable-gpu')
-    # op.add_argument("--disable-dev-shm-usage")
-    # drive = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=op)
     global drive
     drive.get('https://unfollow-app.herokuapp.com/')
     time.sleep(3)
     drive.refresh()
 
-
-sched.add_job(timed_job,'interval', minutes=5, args=['noahthemac'], next_run_time=datetime.now())
+sched.add_job(timed_job,'interval', minutes=30, args=['tommyngn'], next_run_time=datetime.now())
 sched.add_job(refresh, 'interval', minutes=3)
 sched.start()
 
 @app.route('/')
 def home():
+    global curr
+    curr.execute('SELECT name FROM public.unfollow_final;')
+    row=curr.fetchall()
+    namee=[]
+    for i in row:
+        namee.append(i[0])
 
-    return render_template('index.html',names=namess)
+    return render_template('index.html',names=namee)
 
 
 
