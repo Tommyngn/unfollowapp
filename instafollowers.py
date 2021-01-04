@@ -92,6 +92,7 @@ class unfollowbot:
         # drive=webdriver.Chrome(chrome_options=chrome_option, executable_path=path)
         drive.get('https://www.instagram.com')
         time.sleep(3)
+        drive.save_screenshot('testing2.png')
         login=drive.find_element_by_name('username')
         login.send_keys('tommyngn')
         time.sleep(2)
