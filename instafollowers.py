@@ -17,22 +17,29 @@ class unfollowbot:
 
     # def __init__(self):
     #     path = '/Users/tommynguyen/Desktop/chromedriver'
-    #     chrome_option = Options()
-    #     chrome_option.add_argument('--headless')
-    #     chrome_option.add_argument('--window-size=1920x1080')
-    #     chrome_option.add_argument('--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36')
+    #     # chrome_option = Options()
+    #     # chrome_option.add_argument('--headless')
+    #     # chrome_option.add_argument('--window-size=1920x1080')
+    #     # chrome_option.add_argument('--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36')
     #
-    #     # chrome_options = webdriver.ChromeOptions()
+    #     chrome_options = webdriver.ChromeOptions()
     #     # chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-    #     # chrome_options.add_argument("--no-sandbox")
-    #     # chrome_options.add_argument("--headless")
-    #     # chrome_options.add_argument("--disable-dev-shm-usage")
+    #     chrome_options.add_argument("--no-sandbox")
+    #     chrome_options.add_argument("--headless")
+    #     chrome_options.add_argument("--disable-dev-shm-usage")
+    #     chrome_options.add_argument('--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36')
+    #
     #     #
     #     # drive = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
     #
-    #     drive = webdriver.Chrome(options=chrome_option, executable_path=path)
+    #     drive = webdriver.Chrome(options=chrome_options, executable_path=path)
     #     drive.get('https://instagram.com')
-    #     time.sleep(3)
+    #     time.sleep(5)
+    #
+    #     # ogin_elem = drive.find_element_by_name('log in')
+    #     # ogin_elem.click()
+    #     #
+    #     # time.sleep(4)
     #     login=drive.find_element_by_name('username')
     #     login.send_keys('tommyngn')
     #     time.sleep(2)
@@ -59,7 +66,7 @@ class unfollowbot:
     #     page2.click()
     #     time.sleep(3)
     #     page2 = drive.find_elements_by_xpath('//a[contains(@href, "/tommyngn/")]')
-    #     page2[2].click()
+    #     page2[1].click()
     #     time.sleep(3)
     #     page3 = drive.find_element_by_xpath('//a[contains(@href ,"/tommyngn/followers/")]')
     #     page3.click()
@@ -92,7 +99,6 @@ class unfollowbot:
         # drive=webdriver.Chrome(chrome_options=chrome_option, executable_path=path)
         drive.get('https://www.instagram.com')
         time.sleep(3)
-        drive.save_screenshot('testing2.png')
         login=drive.find_element_by_name('username')
         login.send_keys('tommyngn')
         time.sleep(2)
@@ -170,7 +176,7 @@ class unfollowbot:
 
 
 
-# bot=unfollowbot()
+bot=unfollowbot()
 # a=bot.python_list
 #
 # f=open('following_list_updated_new.csv','r')
