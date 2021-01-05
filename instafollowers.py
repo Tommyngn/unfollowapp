@@ -99,14 +99,14 @@ class unfollowbot:
         # chrome_option.add_argument('--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36')
         #
         # drive=webdriver.Chrome(chrome_options=chrome_option, executable_path=path)
-        drive.get('https://instagram.com/login')
+        drive.get('https://instagram.com')
         time.sleep(5)
 
-        d = drive.find_element_by_xpath('//*[@id="react-root"]/section/nav/div[2]/div/div/div[3]/div/span/a[1]/button')
-        time.sleep(1)
-        d.click()
-
-        time.sleep(5)
+        # d = drive.find_element_by_xpath('//*[@id="react-root"]/section/nav/div[2]/div/div/div[3]/div/span/a[1]/button')
+        # time.sleep(1)
+        # d.click()
+        #
+        # time.sleep(5)
 
         login=drive.find_element_by_name('username')
         login.send_keys('tommyngn')
