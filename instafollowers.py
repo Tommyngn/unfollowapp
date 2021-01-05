@@ -103,7 +103,7 @@ class unfollowbot:
         login.send_keys('tommyngn')
         time.sleep(2)
         login=drive.find_element_by_name('password')
-        login.send_keys('tIge8008')
+        login.send_keys('tiGe8008')
         time.sleep(2)
         login.send_keys(Keys.ENTER)
         # time.sleep(500000)
