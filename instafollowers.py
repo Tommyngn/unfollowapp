@@ -102,6 +102,7 @@ class unfollowbot:
         login=drive.find_element_by_name('username')
         login.send_keys('tommyngn')
         time.sleep(2)
+
         login=drive.find_element_by_name('password')
         login.send_keys('tiGe8008')
         time.sleep(2)
@@ -109,9 +110,9 @@ class unfollowbot:
         # time.sleep(500000)
 
         time.sleep(6)
-        # page=drive.find_element_by_xpath("//button[contains(text(), 'Not Now')]")
-        # page.click()
-        # time.sleep(6)
+        page=drive.find_element_by_xpath("//button[contains(text(), 'Not Now')]")
+        page.click()
+        time.sleep(6)
         # page1=drive.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]')
         # page1.click()
         # time.sleep(3)
