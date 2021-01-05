@@ -144,6 +144,7 @@ class unfollowbot:
             if str(i.text) != '':
                 print(i.text)
                 self.python_list.append(str(i.text))
+                time.sleep(1)
 
         return self.python_list
 
