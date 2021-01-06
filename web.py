@@ -47,9 +47,15 @@ def timed_job(name):
     if l[0] != None:
         count=l[0]
         count+=1
+        curr.execute('SELECT name FROM public.unfollow_final;')
+        l_=curr.fetchall()
+        list_=[]
+        for i in l_:
+            list_.append(i[0])
+
         sql='INSERT INTO public.unfollow_final (id,name) VALUES (%s,%s);'
         for pos1, i in enumerate(list3):
-            if str(i) not in list1:
+            if str(i) not in list1 and str(i) not in list_:
                 values=(count,i)
                 curr.execute(sql,values)
                 count+=1
@@ -80,6 +86,7 @@ def home():
     curr.execute('SELECT name FROM public.unfollow_final;')
     row=curr.fetchall()
     namee=[]
+    namee.clear()
     for i in row:
         namee.append(i[0])
 
