@@ -17,7 +17,6 @@ namess=[]
 op = webdriver.ChromeOptions()
 op.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 # path = '/Users/tommynguyen/Desktop/chromedriver'
-
 op.add_argument("--no-sandbox")
 op.add_argument("--headless")
 op.add_argument("--disable-dev-shm-usage")
@@ -34,6 +33,7 @@ curr=conn.cursor()
 def timed_job(name):
     print('This job is run every three minutes.')
     global drive
+    global conn
     bot=unfollowbot()
     list1=bot.getfollowerlist(name,drive)
     curr.execute('SELECT name FROM public.following_updated_new;')
@@ -59,6 +59,8 @@ def timed_job(name):
             if str(i) not in list1:
                 values = (pos1, i)
                 curr.execute(sql, values)
+    conn.commit()
+    drive.delete_all_cookies()
 
 
 def refresh():
