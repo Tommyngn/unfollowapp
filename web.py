@@ -16,7 +16,7 @@ namess=[]
 
 op = webdriver.ChromeOptions()
 op.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-# path = '/Users/tommynguyen/Desktop/chromedriver'
+path = '/Users/tommynguyen/Desktop/chromedriver'
 op.add_argument("--no-sandbox")
 op.add_argument("--headless")
 op.add_argument("--disable-dev-shm-usage")

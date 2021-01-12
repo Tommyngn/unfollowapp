@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+import selenium.common.exceptions
 from selenium.webdriver.chrome.options import Options
 from multiprocessing import Process
 import time
@@ -17,22 +18,22 @@ class unfollowbot:
 
     # def __init__(self):
     #     path = '/Users/tommynguyen/Desktop/chromedriver'
-    #     # chrome_option = Options()
-    #     # chrome_option.add_argument('--headless')
-    #     # chrome_option.add_argument('--window-size=1920x1080')
-    #     # chrome_option.add_argument('--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36')
+    #     chrome_option = Options()
+    #     chrome_option.add_argument('--headless')
+    #     chrome_option.add_argument('--window-size=1920x1080')
+    #     chrome_option.add_argument('--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36')
     #
-    #     chrome_options = webdriver.ChromeOptions()
+    #     # chrome_options = webdriver.ChromeOptions()
     #     # chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-    #     chrome_options.add_argument("--no-sandbox")
-    #     chrome_options.add_argument("--headless")
-    #     chrome_options.add_argument("--disable-dev-shm-usage")
-    #     chrome_options.add_argument('--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36')
+    #     # chrome_options.add_argument("--no-sandbox")
+    #     # chrome_options.add_argument("--headless")
+    #     # chrome_options.add_argument("--disable-dev-shm-usage")
+    #     # chrome_options.add_argument('--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36')
     #
     #     #
     #     # drive = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
     #
-    #     drive = webdriver.Chrome(options=chrome_options, executable_path=path)
+    #     drive = webdriver.Chrome(options=chrome_option, executable_path=path)
     #     drive.get('https://instagram.com/login')
     #     time.sleep(5)
     #
@@ -99,59 +100,99 @@ class unfollowbot:
         # chrome_option.add_argument('--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36')
         #
         # drive=webdriver.Chrome(chrome_options=chrome_option, executable_path=path)
-        drive.get('https://instagram.com')
-        time.sleep(5)
-        # drive.save_screenshot('testttt.png')
+        try:
+            drive.get('https://instagram.com')
+            time.sleep(5)
+            # drive.save_screenshot('testttt.png')
 
-        login=drive.find_element_by_name('username')
-        login.send_keys('tommyngn')
-        time.sleep(2)
-
-        login=drive.find_element_by_name('password')
-        login.send_keys('tiGe8008')
-        time.sleep(2)
-        login.send_keys(Keys.ENTER)
-        # time.sleep(500000)
-
-        time.sleep(6)
-        page=drive.find_element_by_xpath("//button[contains(text(), 'Not Now')]")
-        page.click()
-        time.sleep(6)
-        # page1=drive.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]')
-        # page1.click()
-        # time.sleep(3)
-
-        page2=drive.find_element_by_xpath('//*[@id="react-root"]/section/nav/div[2]/div/div/div[2]/input')
-        page2.send_keys(str(name))
-        time.sleep(3)
-        page2=drive.find_element_by_xpath('//*[@id="react-root"]/section/nav/div[2]/div/div/div[2]/div[4]/div/a[1]/div/div[2]')
-        time.sleep(2)
-        page2.click()
-
-        time.sleep(3)
-        page3 = drive.find_element_by_xpath('//a[contains(@href ,"/' + name + '/followers/")]')
-        page3.click()
-        time.sleep(2)
-
-        scroll_box = drive.find_element_by_xpath("//div[@class='isgrP']")
-        last_ht, ht = 0, 1
-        while last_ht != ht:
-            last_ht = ht
+            login=drive.find_element_by_name('username')
+            login.send_keys('tommyngn')
             time.sleep(2)
-            ht = drive.execute_script("""
-                        arguments[0].scrollTo(0, arguments[0].scrollHeight); 
-                        return arguments[0].scrollHeight;
-                        """, scroll_box)
-        print('done')
-        link=scroll_box.find_elements_by_tag_name('a')
-        for i in link:
-            if str(i.text) != '':
-                print(i.text)
-                self.python_list.append(str(i.text))
-                # time.sleep(1)
 
-        drive.delete_all_cookies()
-        return self.python_list
+            login=drive.find_element_by_name('password')
+            login.send_keys('tiGe8008')
+            time.sleep(2)
+            login.send_keys(Keys.ENTER)
+            # time.sleep(500000)
+
+            time.sleep(6)
+            # drive.save_screenshot('error.png')
+            page=drive.find_element_by_xpath("//button[contains(text(), 'Not Now')]")
+            page.click()
+            time.sleep(6)
+            # page1=drive.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]')
+            # page1.click()
+            # time.sleep(3)
+
+            page2=drive.find_element_by_xpath('//*[@id="react-root"]/section/nav/div[2]/div/div/div[2]/input')
+            page2.send_keys(str(name))
+            time.sleep(3)
+            page2=drive.find_element_by_xpath('//*[@id="react-root"]/section/nav/div[2]/div/div/div[2]/div[4]/div/a[1]/div/div[2]')
+            time.sleep(2)
+            page2.click()
+
+            time.sleep(3)
+            page3 = drive.find_element_by_xpath('//a[contains(@href ,"/' + name + '/followers/")]')
+            page3.click()
+            time.sleep(2)
+
+            scroll_box = drive.find_element_by_xpath("//div[@class='isgrP']")
+            last_ht, ht = 0, 1
+            while last_ht != ht:
+                last_ht = ht
+                time.sleep(2)
+                ht = drive.execute_script("""
+                            arguments[0].scrollTo(0, arguments[0].scrollHeight); 
+                            return arguments[0].scrollHeight;
+                            """, scroll_box)
+            print('done')
+            link=scroll_box.find_elements_by_tag_name('a')
+            for i in link:
+                if str(i.text) != '':
+                    print(i.text)
+                    self.python_list.append(str(i.text))
+                    # time.sleep(1)
+
+            drive.delete_all_cookies()
+            return self.python_list
+
+        except selenium.common.exceptions:
+            time.sleep(6)
+            # page1=drive.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]')
+            # page1.click()
+            # time.sleep(3)
+
+            page2=drive.find_element_by_xpath('//*[@id="react-root"]/section/nav/div[2]/div/div/div[2]/input')
+            page2.send_keys(str(name))
+            time.sleep(3)
+            page2=drive.find_element_by_xpath('//*[@id="react-root"]/section/nav/div[2]/div/div/div[2]/div[4]/div/a[1]/div/div[2]')
+            time.sleep(2)
+            page2.click()
+
+            time.sleep(3)
+            page3 = drive.find_element_by_xpath('//a[contains(@href ,"/' + name + '/followers/")]')
+            page3.click()
+            time.sleep(2)
+
+            scroll_box = drive.find_element_by_xpath("//div[@class='isgrP']")
+            last_ht, ht = 0, 1
+            while last_ht != ht:
+                last_ht = ht
+                time.sleep(2)
+                ht = drive.execute_script("""
+                            arguments[0].scrollTo(0, arguments[0].scrollHeight); 
+                            return arguments[0].scrollHeight;
+                            """, scroll_box)
+            print('done')
+            link=scroll_box.find_elements_by_tag_name('a')
+            for i in link:
+                if str(i.text) != '':
+                    print(i.text)
+                    self.python_list.append(str(i.text))
+                    # time.sleep(1)
+
+            drive.delete_all_cookies()
+            return self.python_list
 
     def writetocsv(self):
         filename= 'following_list_updated_new.csv'
@@ -180,10 +221,27 @@ class unfollowbot:
                 self.cur.execute(sql,values)
         self.con.commit()
 
+    def write_for_aya(self,list_):
+        sql='INSERT INTO public.aya_updated (id,name) VALUES (%s,%s);'
+        for pos1, i in enumerate(list_):
+            values=(int(pos1),str(i))
+            self.cur.execute(sql,values)
+
+        self.con.commit()
 
 
 
+# path = '/Users/tommynguyen/Desktop/chromedriver'
+# chrome_option = Options()
+# chrome_option.add_argument('--headless')
+# chrome_option.add_argument('--window-size=1920x1080')
+# chrome_option.add_argument('--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36')
+#
+# drive = webdriver.Chrome(options=chrome_option, executable_path=path)
+#
 # bot=unfollowbot()
+# l=bot.getfollowerlist('ayalladiaz',drive)
+# bot.write_for_aya(l)
 # a=bot.python_list
 #
 # f=open('following_list_updated_new.csv','r')
