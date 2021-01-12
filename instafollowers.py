@@ -156,7 +156,7 @@ class unfollowbot:
             drive.delete_all_cookies()
             return self.python_list
 
-        except selenium.common.exceptions:
+        except selenium.common.exceptions.NoSuchElementException:
             time.sleep(6)
             # page1=drive.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]')
             # page1.click()
