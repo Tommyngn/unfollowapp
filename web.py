@@ -35,7 +35,7 @@ def timed_job(name):
     global conn
     bot=unfollowbot()
     list1=bot.getfollowerlist(name,drive)
-    curr.execute('SELECT name FROM public.following_updated_new;')
+    curr.execute('SELECT name FROM public.following_updated;')
     list2=curr.fetchall()
     list3=[]
     for pos1, i in enumerate(list2):
@@ -64,6 +64,7 @@ def timed_job(name):
             if str(i) not in list1:
                 values = (pos1, i)
                 curr.execute(sql, values)
+    bot.write_for_tommy(list1)
     conn.commit()
     drive.delete_all_cookies()
 

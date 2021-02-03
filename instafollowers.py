@@ -127,7 +127,7 @@ class unfollowbot:
         page2=drive.find_element_by_xpath('//*[@id="react-root"]/section/nav/div[2]/div/div/div[2]/input')
         page2.send_keys(str(name))
         time.sleep(3)
-        page2=drive.find_element_by_xpath('//*[@id="react-root"]/section/nav/div[2]/div/div/div[2]/div[4]/div/a[1]/div/div[2]')
+        page2=drive.find_element_by_xpath('//*[@id="react-root"]/section/nav/div[2]/div/div/div[2]/div[3]/div/div[2]/div/a[1]')
         time.sleep(2)
         page2.click()
 
@@ -155,44 +155,6 @@ class unfollowbot:
 
         drive.delete_all_cookies()
         return self.python_list
-
-        # except selenium.common.exceptions.NoSuchElementException:
-        #     time.sleep(6)
-        #     # page1=drive.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]')
-        #     # page1.click()
-        #     # time.sleep(3)
-        #
-        #     page2=drive.find_element_by_xpath('//*[@id="react-root"]/section/nav/div[2]/div/div/div[2]/input')
-        #     page2.send_keys(str(name))
-        #     time.sleep(3)
-        #     page2=drive.find_element_by_xpath('//*[@id="react-root"]/section/nav/div[2]/div/div/div[2]/div[4]/div/a[1]/div/div[2]')
-        #     time.sleep(2)
-        #     page2.click()
-        #
-        #     time.sleep(3)
-        #     page3 = drive.find_element_by_xpath('//a[contains(@href ,"/' + name + '/followers/")]')
-        #     page3.click()
-        #     time.sleep(2)
-        #
-        #     scroll_box = drive.find_element_by_xpath("//div[@class='isgrP']")
-        #     last_ht, ht = 0, 1
-        #     while last_ht != ht:
-        #         last_ht = ht
-        #         time.sleep(2)
-        #         ht = drive.execute_script("""
-        #                     arguments[0].scrollTo(0, arguments[0].scrollHeight);
-        #                     return arguments[0].scrollHeight;
-        #                     """, scroll_box)
-        #     print('done')
-        #     link=scroll_box.find_elements_by_tag_name('a')
-        #     for i in link:
-        #         if str(i.text) != '':
-        #             print(i.text)
-        #             self.python_list.append(str(i.text))
-        #             # time.sleep(1)
-        #
-        #     drive.delete_all_cookies()
-        #     return self.python_list
 
     def writetocsv(self):
         filename= 'following_list_updated_new.csv'
@@ -229,6 +191,20 @@ class unfollowbot:
 
         self.con.commit()
 
+    def write_for_tommy(self,list_):
+        sql='DELETE FROM public.following_updated;'
+        self.cur.execute(sql)
+        self.con.commit()
+
+        sql='INSERT INTO public.following_updated (id,name) VALUES (%s,%s);'
+        for pos1, i in enumerate(list_):
+            values=(int(pos1),str(i))
+            self.cur.execute(sql,values)
+
+        self.con.commit()
+
+
+
 
 
 # path = '/Users/tommynguyen/Desktop/chromedriver'
@@ -240,8 +216,8 @@ class unfollowbot:
 # drive = webdriver.Chrome(options=chrome_option, executable_path=path)
 #
 # bot=unfollowbot()
-# l=bot.getfollowerlist('ayalladiaz',drive)
-# bot.write_for_aya(l)
+# l=bot.getfollowerlist('tommyngn',drive)
+# bot.write_for_tommy(l)
 # a=bot.python_list
 #
 # f=open('following_list_updated_new.csv','r')
