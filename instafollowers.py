@@ -232,6 +232,10 @@ class unfollowbot:
 #     if i not in a and i != 'Name':
 #         writer.writerow([str(i)])
 #
-
+# /html/body/div[5]/div/div/div[2]/ul/div/li[149]/div/div[2]/button
+#
+# /html/body/div[5]/div/div/div[2]/ul/div/li[152]/div/div[2]/button
+#
+# /html/body/div[5]/div/div/div[2]/ul/div/li[1]/div/div[2]/button
 
 

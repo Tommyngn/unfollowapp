@@ -58,6 +58,13 @@ def timed_job(name):
                 values=(count,i)
                 curr.execute(sql,values)
                 count+=1
+                
+        for pos1, i in enumerate(list1):
+            if str(i) not in list3 and str(i) not in list_:
+                values=(count,i)
+                curr.execute(sql,values)
+                count+=1
+
     else:
         sql = 'INSERT INTO public.unfollow_final (id,name) VALUES (%s,%s);'
         for pos1, i in enumerate(list3):
