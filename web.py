@@ -14,15 +14,15 @@ app=Flask(__name__,template_folder='templatess')
 sched=BackgroundScheduler(daemon=True)
 namess=[]
 
-op = webdriver.ChromeOptions()
-op.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-path = '/Users/tommynguyen/Desktop/chromedriver'
-op.add_argument("--no-sandbox")
-op.add_argument("--headless")
-op.add_argument("--disable-dev-shm-usage")
-op.add_argument('--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36')
-drive = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=op)
-driving = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=op)
+# op = webdriver.ChromeOptions()
+# op.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+# path = '/Users/tommynguyen/Desktop/chromedriver'
+# op.add_argument("--no-sandbox")
+# op.add_argument("--headless")
+# op.add_argument("--disable-dev-shm-usage")
+# op.add_argument('--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36')
+# drive = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=op)
+# driving = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=op)
 # drive = webdriver.Chrome(executable_path=path,chrome_options=op)
 # driving = webdriver.Chrome(executable_path=path,chrome_options=op)
 
@@ -31,8 +31,20 @@ curr=conn.cursor()
 
 def timed_job(name):
     print('This job is run every three minutes.')
-    global drive
+    # global drive
     global conn
+    global curr
+
+    op = webdriver.ChromeOptions()
+    op.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    path = '/Users/tommynguyen/Desktop/chromedriver'
+    op.add_argument("--no-sandbox")
+    op.add_argument("--headless")
+    op.add_argument("--disable-dev-shm-usage")
+    op.add_argument(
+        '--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36')
+    drive = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=op)
+
     bot=unfollowbot()
     list1=bot.getfollowerlist(name,drive)
     curr.execute('SELECT name FROM public.following_updated;')
@@ -58,7 +70,7 @@ def timed_job(name):
                 values=(count,i)
                 curr.execute(sql,values)
                 count+=1
-                
+
         for pos1, i in enumerate(list1):
             if str(i) not in list3 and str(i) not in list_:
                 values=(count,i)
@@ -78,10 +90,21 @@ def timed_job(name):
 
 def refresh():
     print('refreshing page')
-    global driving
-    driving.get('https://unfollow-app.herokuapp.com/')
+
+    op = webdriver.ChromeOptions()
+    op.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    path = '/Users/tommynguyen/Desktop/chromedriver'
+    op.add_argument("--no-sandbox")
+    op.add_argument("--headless")
+    op.add_argument("--disable-dev-shm-usage")
+    op.add_argument(
+        '--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36')
+    drive = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=op)
+
+    # global driving
+    drive.get('https://unfollow-app.herokuapp.com/')
     time.sleep(3)
-    driving.refresh()
+    drive.refresh()
 
 sched.add_job(timed_job,'interval', hours=3, args=['tommyngn'], next_run_time=datetime.now())
 sched.add_job(refresh, 'interval', minutes=15)
