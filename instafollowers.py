@@ -116,10 +116,11 @@ class unfollowbot:
         # time.sleep(500000)
 
         time.sleep(6)
-        # drive.save_screenshot('error.png')
-        page=drive.find_element_by_xpath("//button[contains(text(), 'Not Now')]")
-        page.click()
-        time.sleep(6)
+        drive.save_screenshot('error.png')
+        if self.check_if_element_is_there("//button[contains(text(), 'Not Now')]",drive) == True:
+            page=drive.find_element_by_xpath("//button[contains(text(), 'Not Now')]")
+            page.click()
+            time.sleep(6)
         # page1=drive.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]')
         # page1.click()
         # time.sleep(3)
@@ -127,7 +128,8 @@ class unfollowbot:
         page2=drive.find_element_by_xpath('//*[@id="react-root"]/section/nav/div[2]/div/div/div[2]/input')
         page2.send_keys(str(name))
         time.sleep(3)
-        page2=drive.find_element_by_xpath('//*[@id="react-root"]/section/nav/div[2]/div/div/div[2]/div[3]/div/div[2]/div/a[1]')
+        drive.save_screenshot('error2.png')
+        page2=drive.find_element_by_xpath('//*[@id="react-root"]/section/nav/div[2]/div/div/div[2]/div[3]/div/div[2]/div/div[1]/a')
         time.sleep(2)
         page2.click()
 
@@ -202,6 +204,15 @@ class unfollowbot:
             self.cur.execute(sql,values)
 
         self.con.commit()
+    def check_if_element_is_there(self,l,drive):
+        try:
+            drive.find_element_by_xpath(l)
+
+        except selenium.common.exceptions.NoSuchElementException:
+            return False
+
+        return True
+
 
 
 

@@ -43,7 +43,8 @@ def timed_job(name):
     op.add_argument("--disable-dev-shm-usage")
     op.add_argument(
         '--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36')
-    drive = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=op)
+    # drive = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=op)
+    drive = webdriver.Chrome(executable_path=path,chrome_options=op)
 
     bot=unfollowbot()
     list1=bot.getfollowerlist(name,drive)
@@ -67,15 +68,17 @@ def timed_job(name):
         sql='INSERT INTO public.unfollow_final (id,name) VALUES (%s,%s);'
         for pos1, i in enumerate(list3):
             if str(i) not in list1 and str(i) not in list_:
+                print(i, 'gggg')
                 values=(count,i)
                 curr.execute(sql,values)
                 count+=1
 
-        for pos1, i in enumerate(list1):
-            if str(i) not in list3 and str(i) not in list_:
-                values=(count,i)
-                curr.execute(sql,values)
-                count+=1
+        # for pos1, i in enumerate(list1):
+        #     if str(i) not in list3 and str(i) not in list_:
+        #         print(i, 'llll')
+        #         values=(count,i)
+        #         curr.execute(sql,values)
+        #         count+=1
 
     else:
         sql = 'INSERT INTO public.unfollow_final (id,name) VALUES (%s,%s);'
@@ -99,7 +102,8 @@ def refresh():
     op.add_argument("--disable-dev-shm-usage")
     op.add_argument(
         '--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36')
-    drive = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=op)
+    # drive = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=op)
+    drive = webdriver.Chrome(executable_path=path,chrome_options=op)
 
     # global driving
     drive.get('https://unfollow-app.herokuapp.com/')
